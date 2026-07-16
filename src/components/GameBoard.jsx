@@ -1,11 +1,16 @@
 import Spaceship from "./Spaceship";
 import Enemy from "./Enemy";
+import Laser from "./Laser";
 
-function GameBoard({ shipPosition }) {
+// ✅ FIX: Add laserY to props
+function GameBoard({ shipPosition, enemies, laserVisible, laserY }) {
   return (
     <div className="game-board">
-      {/* Render Enemy directly. Do not try to map over undefined props. */}
-      <Enemy />
+      {enemies.map((enemy) => (
+        <Enemy key={enemy.id} lane={enemy.lane} top={enemy.top}/>
+      ))}
+      {laserVisible && <Laser shipPosition={shipPosition} laserY={laserY} />}
+
       <Spaceship shipPosition={shipPosition} />
     </div>
   );
